@@ -36,7 +36,6 @@ app.get("/flashcards/:id", async (req: express.Request, res: express.Response) =
 // Create a new flashcard
 app.post("/flashcards/create", async (req: express.Request, res: express.Response) => {
   const { question, answer } = req.body;
-
   try {
     const newFlashcard = await prisma.flashcard.create({
       data: {

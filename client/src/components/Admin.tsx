@@ -62,7 +62,7 @@ function Admin() {
 
     const handleSubmit = async () => {
         if (modalQ === '' || modalA === '') {
-            toast.error('Please fill all the fields',{
+            toast.error('Please fill all the fields', {
                 autoClose: 700
             });
             return;
@@ -75,33 +75,42 @@ function Admin() {
         };
     
         try {
+            console.log('Submitting request...');
+            let response: any;
             if (modalType === 'add') {
-                const response = await axios.post(`${BASE_URL}/flashcards/create`, requestData);
+                response = await axios.post(`${BASE_URL}/flashcards/create`, requestData);
+                console.log('Response received:', response);
+                
                 if (response.status === 200 && response.data) {
-                    toast.success('Item added successfully',{
+                    console.log('Response data:', response.data); 
+                    toast.success('Item added successfully', {
                         autoClose: 700
                     });
-                    setData((prevData) => [...prevData, response.data]);
+                    setData(prevData => [...prevData, response.data]);
                 }
             } else {
-                const response = await axios.post(`${BASE_URL}/flashcards/update/${modalId}`, requestData);
+                response = await axios.post(`${BASE_URL}/flashcards/update/${modalId}`, requestData);
+                console.log('Response received:', response); 
                 if (response.status === 200 && response.data) {
-                    setData(prevData => 
-                        prevData.map(item => 
+                    console.log('Response data:', response.data); 
+                    setData(prevData =>
+                        prevData.map(item =>
                             item.id === modalId ? { ...item, ...response.data } : item
                         )
                     );
-                    toast.success('Item updated successfully',{
+                    toast.success('Item updated successfully', {
                         autoClose: 700
                     });
                 }
             }
         } catch (error) {
-            toast.error(`Failed to ${modalType === 'add' ? 'add' : 'update'} item`,{
+            console.error('Error occurred:', error);
+            toast.error(`Failed to ${modalType === 'add' ? 'add' : 'update'} item`, {
                 autoClose: 700
             });
         }
     };
+    
     
 
     return (
