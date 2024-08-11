@@ -15,7 +15,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
 // Get all flashcards
 app.get("/flashcards", async (req: express.Request, res: express.Response) => {
   const flashcards = await prisma.flashcard.findMany();
-  res.json(flashcards);
+  res.status(200).json(flashcards);
 });
 
 //Get flashCard by id
@@ -27,7 +27,7 @@ app.get("/flashcards/:id", async (req: express.Request, res: express.Response) =
         id: parseInt(id)
       }
     });
-    res.json(flashcard);
+    res.status(200).json(flashcard);
   }catch(error){
     res.json({error: 'Failed to get flashcard'});
   }
@@ -44,7 +44,7 @@ app.post("/flashcards/create", async (req: express.Request, res: express.Respons
         answer
       }
     });
-    res.status(201).json(newFlashcard);
+    res.status(200).json(newFlashcard);
   } catch (error) {
     res.status(500).json({ error: 'Failed to create flashcard' });
   }
@@ -65,7 +65,7 @@ app.post("/flashcards/update/:id", async (req: express.Request, res: express.Res
         answer
       }
     });
-    res.json(updatedFlashcard);
+    res.status(200).json(updatedFlashcard);
   } catch (error) {
     res.json({ error: 'Failed to update flashcard' });
   }
@@ -84,7 +84,7 @@ app.post("/flashcards/delete/:id", async (req: express.Request, res: express.Res
       res.json({message: 'Flashcard deleted successfully'});
     }
   } catch (error) {
-    res.json({error: 'Failed to delete flashcard'});
+    res.status(200).json({error: 'Failed to delete flashcard'});
   }
 })
 
