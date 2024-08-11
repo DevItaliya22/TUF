@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req: express.Request, res: express.Response) => {
-    res.send("Hello Wojfihfrld");
+    res.send("Sever is running");
 });
 
 // Get all flashcards
