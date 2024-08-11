@@ -80,14 +80,11 @@ function Admin() {
             if (modalType === 'add') {
                 response = await axios.post(`${BASE_URL}/flashcards/create`, requestData);
                 console.log('Response received:', response);
-                
-                if (response.status === 200 && response.data) {
-                    console.log('Response data:', response.data); 
                     toast.success('Item added successfully', {
                         autoClose: 700
                     });
                     setData(prevData => [...prevData, response.data]);
-                }
+                
             } else {
                 response = await axios.post(`${BASE_URL}/flashcards/update/${modalId}`, requestData);
                 console.log('Response received:', response); 
