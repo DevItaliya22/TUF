@@ -50,6 +50,21 @@ function FlashCard() {
     fetchData();
   }, []);
 
+  // useEffect(()=>{
+  //   const cussorDot: any = document.querySelector(".dot")
+  //   window.addEventListener("mousemove",(e)=>{
+  //     const posX = e.clientX;
+  //     const posY = e.clientY;
+  //     cussorDot.animate({
+  //       left : `${posX+20}px`,
+  //       top : `${posY+20}px`
+  //     },{
+  //       duration : 1000,
+  //       fill : "forwards"
+  //     })
+  //   })
+  // })
+
   if (data.length === 0) {
     return <div>First request in server will take about 50sec to hot reload the server sometimes as i am using free version for now , as a developer hope u understand</div>;
   }
@@ -57,7 +72,7 @@ function FlashCard() {
   return (
     <div className="relative w-full h-screen overflow-hidden">
       <BackgroundBeams className="absolute inset-0 -z-10" />
-
+        {/* <div className="dot"></div> */}
       <div className="relative z-10 flex flex-col">
         <div className="w-full h-[7vh]">
           <Navbar />

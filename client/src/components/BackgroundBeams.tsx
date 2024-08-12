@@ -89,10 +89,11 @@ export const BackgroundBeams = React.memo(
             ></motion.path>
           ))}
           <defs>
-            {paths.map(( index) => (
+            {paths.map(( path,index) => (
               <motion.linearGradient
                 id={`linearGradient-${index}`}
                 key={`gradient-${index}`}
+                path={path}
                 initial={{
                   x1: "0%",
                   x2: "0%",
@@ -106,7 +107,7 @@ export const BackgroundBeams = React.memo(
                   y2: ["0%", `${93 + Math.random() * 8}%`],
                 }}
                 transition={{
-                  duration: Math.random() * 10 + 7,
+                  duration: Math.random()  * 10 +10,
                   ease: "easeInOut",
                   repeat: Infinity,
                   delay: Math.random() * 10,
