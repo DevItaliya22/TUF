@@ -19,7 +19,7 @@ const redisClient = new Redis(process.env.REDIS_URL ?? "redis://red-cqsopmo8fa8c
 const rateLimiter = new RateLimiterRedis({
   storeClient: redisClient,
   keyPrefix: 'rateLimiter',
-  points: 5, 
+  points: 500, 
   duration: 10, 
 });
 
