@@ -14,7 +14,7 @@ const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 dotenv_1.default.config();
-console.log(process.env.REDIS_URL);
+// console.log(process.env.REDIS_URL);
 const redisClient = new ioredis_1.default(process.env.REDIS_URL ?? "redis://red-cqsopmo8fa8c73dhltkg:6379");
 const rateLimiter = new rate_limiter_flexible_1.RateLimiterRedis({
     storeClient: redisClient,
