@@ -19,7 +19,7 @@ const redisClient = new ioredis_1.default(process.env.REDIS_URL ?? "redis://red-
 const rateLimiter = new rate_limiter_flexible_1.RateLimiterRedis({
     storeClient: redisClient,
     keyPrefix: 'rateLimiter',
-    points: 5,
+    points: 500,
     duration: 10,
 });
 const rateLimitMiddleware = async (req, res, next) => {
