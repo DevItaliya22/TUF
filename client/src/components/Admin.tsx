@@ -113,16 +113,30 @@ function Admin() {
             });
         }
     };
-    
+    useEffect(()=>{
+        const cussorDot: any = document.querySelector(".dot")
+        window.addEventListener("mousemove",(e)=>{
+          const posX = e.clientX;
+          const posY = e.clientY;
+          cussorDot.animate({
+            left : `${posX+20}px`,
+            top : `${posY+20}px`
+          },{
+            duration : 1000,
+            fill : "forwards"
+          })
+        })
+      })
     
 
     return (
         <div className="flex flex-col items-center justify-center">
             <ToastContainer />
+            <div className="dot"></div>
             <BackgroundBeams className="fixed inset-0 -z-10" />
             <div className=" w-[10vw] h-[8vh] flex flex-row justify-between rounded-[30px] mt-[20px]">
                     <div
-                        className="border-[1px] bg-black border-white pl-[50px] text-[3vh] text-white pt-[2vh] pb-[2vh] pr-[50px] cursor-pointer"
+                        className="border-[1px] bg-black text-[#7d7c7c] selection:transition ease-linear hover:text-[#fff] border-white pl-[50px] text-[3vh] pt-[1.6vh] pb-[2vh] pr-[50px] cursor-pointer select-none"  
                         onClick={() => navigate("/")}
                     >
                         Home
@@ -143,6 +157,7 @@ function Admin() {
                 {data.length === 0 ? <>NO DATA FOUND </> : 
                 <div className="mt-[20px]">
                 <div className="h-auto my-[10px]">
+                <div className="text-white">Try deleting more than 5 items in less than 10 sec , I have used rate limiting in delete specifically. </div>
                     {data.map((item: Data, idx: number) => (
                         <div className="flex border-[2px] p-[3px] m-[20px]" key={idx}>
                             <div className="flex w-[100%] bg-black flex-col text-white justify-between p-4">
