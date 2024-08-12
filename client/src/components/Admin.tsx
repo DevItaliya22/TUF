@@ -120,20 +120,19 @@ function Admin() {
         <div className="flex flex-col items-center justify-center">
             <ToastContainer />
             <BackgroundBeams className="fixed inset-0 -z-10" />
-            <div className=" w-[10vw] h-[8vh] flex flex-row justify-end rounded-[30px] mt-[20px]">
-                <div>
+            <div className=" w-[10vw] h-[8vh] flex flex-row justify-between rounded-[30px] mt-[20px]">
                     <div
                         className="border-[1px] bg-black border-white pl-[50px] text-[3vh] text-white pt-[2vh] pb-[2vh] pr-[50px] cursor-pointer"
                         onClick={() => navigate("/")}
                     >
                         Home
                     </div>
-                </div>
+
             </div>
 
             <div className="flex flex-col w-[80%] mt-[50px]">
-                <div className="flex justify-end w-full p-4 border-[2px] border-b-[6px] border-r-[6px]">
-                    
+                <div className="flex justify-center w-full p-4 border-[2px] border-b-[6px] border-r-[6px]">
+                <div className="text-white text-[15px] mt-[10px] mr-[20px]">Add new FlashCards from here : </div>
                     <button
                         className="px-4 py-2 text-white bg-blue-500 rounded"
                         onClick={() => openModal({type:'add', item:{id:-1, question:'', answer:''}})}
