@@ -1,39 +1,57 @@
 import express from "express";
 import cors from 'cors';
-
 import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import { RateLimiterRedis } from 'rate-limiter-flexible';
+import Redis from 'ioredis';
 
+const prisma = new PrismaClient();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req: express.Request, res: express.Response) => {
-    res.send("Sever is running");
+const redisClient = new Redis('redis://red-cqsopmo8fa8c73dhltkg:6379');
+
+const rateLimiter = new RateLimiterRedis({
+  storeClient: redisClient,
+  keyPrefix: 'rateLimiter',
+  points: 3, 
+  duration: 10, 
 });
 
-// Get all flashcards
+
+app.use(async (req, res, next) => {
+  try {
+    await rateLimiter.consume(req.ip); 
+    next(); 
+  } catch (rlRejected) {
+    res.status(429).json({ message: 'Too Many Requests' });
+  }
+});
+
+// Existing routes
+app.get("/", (req: express.Request, res: express.Response) => {
+    res.send("Server is running");
+});
+
 app.get("/flashcards", async (req: express.Request, res: express.Response) => {
   const flashcards = await prisma.flashcard.findMany();
   res.status(200).json(flashcards);
 });
 
-//Get flashCard by id
 app.get("/flashcards/:id", async (req: express.Request, res: express.Response) => {
   const {id} = req.params;
-  try{
+  try {
     const flashcard = await prisma.flashcard.findUnique({
       where: {
         id: parseInt(id)
       }
     });
     res.status(200).json(flashcard);
-  }catch(error){
+  } catch (error) {
     res.json({error: 'Failed to get flashcard'});
   }
 });
 
-// Create a new flashcard
 app.post("/flashcards/create", async (req: express.Request, res: express.Response) => {
   const { question, answer } = req.body;
   try {
@@ -49,7 +67,6 @@ app.post("/flashcards/create", async (req: express.Request, res: express.Respons
   }
 });
 
-// Update a flashcard
 app.post("/flashcards/update/:id", async (req: express.Request, res: express.Response) => {
   const { id } = req.params;
   const { question, answer } = req.body;
@@ -68,9 +85,8 @@ app.post("/flashcards/update/:id", async (req: express.Request, res: express.Res
   } catch (error) {
     res.json({ error: 'Failed to update flashcard' });
   }
-})
+});
 
-//delete a flashcard
 app.post("/flashcards/delete/:id", async (req: express.Request, res: express.Response) => {
   const {id} = req.params;
   try {
@@ -85,7 +101,7 @@ app.post("/flashcards/delete/:id", async (req: express.Request, res: express.Res
   } catch (error) {
     res.status(200).json({error: 'Failed to delete flashcard'});
   }
-})
+});
 
 app.listen(3000, () => {
   console.log("Server is running on port 3000");
