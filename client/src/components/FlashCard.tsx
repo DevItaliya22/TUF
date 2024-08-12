@@ -51,7 +51,7 @@ function FlashCard() {
   }, []);
 
   if (data.length === 0) {
-    return <div>Loading...</div>;
+    return <div>First request in server will take about 50sec to hot reload the server sometimes as i am using free version for now , as a developer hope u understand</div>;
   }
 
   return (
