@@ -113,26 +113,26 @@ function Admin() {
             });
         }
     };
-    useEffect(()=>{
-        const cussorDot: any = document.querySelector(".dot")
-        window.addEventListener("mousemove",(e)=>{
-          const posX = e.clientX;
-          const posY = e.clientY;
-          cussorDot.animate({
-            left : `${posX+20}px`,
-            top : `${posY+20}px`
-          },{
-            duration : 1000,
-            fill : "forwards"
-          })
-        })
-      })
+    // useEffect(()=>{
+    //     const cussorDot: any = document.querySelector(".dot")
+    //     window.addEventListener("mousemove",(e)=>{
+    //       const posX = e.clientX;
+    //       const posY = e.clientY;
+    //       cussorDot.animate({
+    //         left : `${posX+20}px`,
+    //         top : `${posY+20}px`
+    //       },{
+    //         duration : 1000,
+    //         fill : "forwards"
+    //       })
+    //     })
+    //   })
     
 
     return (
         <div className="flex flex-col items-center justify-center">
             <ToastContainer />
-            <div className="dot"></div>
+            {/* <div className="dot"></div> */}
             <BackgroundBeams className="fixed inset-0 -z-10" />
             <div className=" w-[10vw] h-[8vh] flex flex-row justify-between rounded-[30px] mt-[20px]">
                     <div
