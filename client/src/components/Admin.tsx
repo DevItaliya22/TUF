@@ -47,6 +47,8 @@ function Admin() {
     const handleDelete = async (id: number) => {
         try {
             const response = await axios.post(`${BASE_URL}/flashcards/delete/${id}`);
+            console.log(response.data);
+            
             if (response.status === 200) {
                 toast.success('Item deleted successfully',{
                     autoClose: 700
@@ -54,6 +56,9 @@ function Admin() {
                 setData(prevData => prevData.filter(item => item.id !== id)); 
             }
         } catch (error) {
+            
+            console.log(error);
+            
             toast.error('Failed to delete item',{
                 autoClose: 700
             });
@@ -111,7 +116,7 @@ function Admin() {
     
 
     return (
-        <div className="flex justify-center flex-col items-center">
+        <div className="flex flex-col items-center justify-center">
             <ToastContainer />
             <div className="bg-red-500 w-[10vw] h-[8vh] flex flex-row justify-end rounded-[30px] mt-[20px]">
                 <div>
@@ -127,7 +132,7 @@ function Admin() {
             <div className="flex flex-col w-[80%] mt-[50px]">
                 <div className="flex justify-end w-full p-4 border-[2px] border-b-[6px] border-r-[6px]">
                     <button
-                        className="bg-blue-500 text-white px-4 py-2 rounded"
+                        className="px-4 py-2 text-white bg-blue-500 rounded"
                         onClick={() => openModal({type:'add', item:{id:-1, question:'', answer:''}})}
                     >
                         Add item
@@ -149,7 +154,7 @@ function Admin() {
                             <div className="flex flex-col justify-center">
                                 <button
                                     onClick={() => openModal({type:'update', item})}
-                                    className="bg-blue-500 text-white px-4 py-2 rounded"
+                                    className="px-4 py-2 text-white bg-blue-500 rounded"
                                 >
                                     Update
                                 </button>
@@ -169,13 +174,13 @@ function Admin() {
             {showModal && (
                 <div
                     onClick={closeModal}
-                    className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50"
+                    className="fixed top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50"
                 >
                     <div
                         onClick={(e) => e.stopPropagation()}
                         className="bg-white p-8 rounded w-[40vw] h-[40vh]"
                     >
-                        <h2 className="text-xl mb-4">Your Flashcard</h2>
+                        <h2 className="mb-4 text-xl">Your Flashcard</h2>
                         <input
                             type="text"
                             placeholder="Question"
