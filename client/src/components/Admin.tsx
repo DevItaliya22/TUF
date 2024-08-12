@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import BASE_URL from "../constants/index";
+import { BackgroundBeams } from "./BackgroundBeams";
 
 function Admin() {
     const navigate = useNavigate();
@@ -118,10 +119,11 @@ function Admin() {
     return (
         <div className="flex flex-col items-center justify-center">
             <ToastContainer />
-            <div className="bg-red-500 w-[10vw] h-[8vh] flex flex-row justify-end rounded-[30px] mt-[20px]">
+            <BackgroundBeams className="fixed inset-0 -z-10" />
+            <div className=" w-[10vw] h-[8vh] flex flex-row justify-end rounded-[30px] mt-[20px]">
                 <div>
                     <div
-                        className="text-[#000] text-[3vh] pt-[2vh] pb-[2vh] pr-[50px] cursor-pointer"
+                        className="border-[1px] bg-black border-white pl-[50px] text-[3vh] text-white pt-[2vh] pb-[2vh] pr-[50px] cursor-pointer"
                         onClick={() => navigate("/")}
                     >
                         Home
@@ -131,6 +133,7 @@ function Admin() {
 
             <div className="flex flex-col w-[80%] mt-[50px]">
                 <div className="flex justify-end w-full p-4 border-[2px] border-b-[6px] border-r-[6px]">
+                    
                     <button
                         className="px-4 py-2 text-white bg-blue-500 rounded"
                         onClick={() => openModal({type:'add', item:{id:-1, question:'', answer:''}})}
@@ -139,11 +142,11 @@ function Admin() {
                     </button>
                 </div>
                 {data.length === 0 ? <>NO DATA FOUND </> : 
-                <div className="border-[2px] mt-[20px]">
+                <div className="mt-[20px]">
                 <div className="h-auto my-[10px]">
                     {data.map((item: Data, idx: number) => (
                         <div className="flex border-[2px] p-[3px] m-[20px]" key={idx}>
-                            <div className="flex w-[100%] flex-col justify-between p-4">
+                            <div className="flex w-[100%] bg-black flex-col text-white justify-between p-4">
                                 <div>
                                     <span className="text-red-400">Question: </span> {item.question}
                                 </div>
