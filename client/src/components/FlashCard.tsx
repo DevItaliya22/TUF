@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import BASE_URL from "../constants/index";
 import { BackgroundBeams } from "./BackgroundBeams";
 import { Icon } from "./Icon";
+import Loading from "./Loading";
 
 function FlashCard() {
   const [frontside, setFrontside] = useState<boolean>(true);
@@ -66,10 +67,14 @@ function FlashCard() {
   // })
 
   if (data.length === 0) {
-    return <div>First request in server will take about 50sec to hot reload the server sometimes as i am using free version for now , as a developer hope u understand</div>;
+    return <div className="w-[100vw] h-[100vh]">
+      <Loading></Loading>
+    </div>;
   }
 
   return (
+    <>
+    {/* <Loading></Loading> */}
     <div className="relative w-full h-screen overflow-hidden">
       <BackgroundBeams className="absolute inset-0 -z-10" />
         {/* <div className="dot"></div> */}
@@ -90,7 +95,7 @@ function FlashCard() {
                 <div
                 onClick={handleDec}
                   id="frontside"
-                  className={`w-[25vw] h-[80vh] scale-75 ${
+                  className={` cursor-pointer w-[25vw] h-[80vh] scale-75 ${
                     idx > 0 ? "border-[#4a4949] border-[1px] text-white shadow-2xl" : ""
                   }`}
                 >
@@ -152,7 +157,7 @@ function FlashCard() {
                 <div
                 onClick={handleInc}
                   id="frontside"
-                  className={`w-[25vw] h-[80vh] scale-75 ${
+                  className={`w-[25vw] h-[80vh] scale-75 cursor-pointer ${
                     idx < data.length - 1 ? "border-[#4a4949] border-[1px] text-white shadow-2xl" : ""
                   }`}
                 >
@@ -186,6 +191,7 @@ function FlashCard() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
