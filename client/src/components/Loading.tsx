@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -20,25 +20,6 @@ function Loading() {
             onUpdate: function () {
                 count.innerHTML = Math.round(this.targets()[0].innerHTML);
             },
-            // onComplete: () => {
-            //     setInterval(() => {
-            //         gsap.to(count, {
-            //             innerHTML: 100,
-            //             duration: 2,
-            //             ease: 'power2',
-            //             snap: { innerHTML: 1 },
-            //             onUpdate: function () {
-            //                 count.innerHTML = Math.round(this.targets()[0].innerHTML);
-            //             },
-            //             onComplete : function(){
-            //                 gsap.to(loadingPageRef.current, {
-            //                     transform: 'translateY(-100vh)',
-            //                     duration: 1,
-            //                 })
-            //             }
-            //         });
-            //     }, 500);
-            // }
         });
         gsap.from("span",{
             y:1000,
@@ -47,36 +28,8 @@ function Loading() {
         gsap.to(loadingLine, {
             width:'100%',
             duration: 0.3,
-            // onComplete: () => {
-            //     setInterval(() => {
-            //         gsap.to(loadingLine, {
-            //             width:'100%',
-            //             duration: 2,
-            //             ease:"power2"
-            //         });
-            //     }, 500);
-            // }
         });
     });
-
-    // useEffect(async()=>{
-    //     const count = countRef.current;
-    //     const loadingLine = loadingLineRef.current;
-    //     for(let i=0;i<=9;i++)
-    //     {
-    //         for(let j=0;j<=9;j++)
-    //         {
-    //             let str = `${i}${j}`;
-    //             count.innerHTML = str;
-    //             loadingLine.style.width = `${str}%`;
-    //             await new Promise(resolve => setTimeout(resolve, 30));
-    //             if(count.innerHTML=="37") await new Promise(resolve => setTimeout(resolve, 100));
-    //             if(count.innerHTML=="83") await new Promise(resolve => setTimeout(resolve, 300));
-    //         }
-    //     }
-    //     count.innerHTML = 100;
-    //     loadingLine.style.width = `100%`;
-    // },[])
       
     
   return (
